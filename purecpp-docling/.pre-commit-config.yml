@@ -1,0 +1,20 @@
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: nbqa_black
+        name: nbQA Black
+        entry: uv run --no-sync nbqa black examples/
+        pass_filenames: false
+        language: system
+        files: '\.ipynb$'
+      - id: nbqa_isort
+        name: nbQA isort
+        entry: uv run --no-sync nbqa isort examples/
+        pass_filenames: false
+        language: system
+        files: '\.ipynb$'
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.7.8
+    hooks:
+      - id: uv-lock

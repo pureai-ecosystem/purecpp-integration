@@ -1,0 +1,22 @@
+[project]
+name = "purecpp-crawl4ai"
+version = "0.1.0"
+description = "PureCPP Crawl4AI integration"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+readme = "README.md"
+authors = [
+    { name = "Gabriel Ayres", email = "gabriel.ayres@pureai.com.br" },
+]
+maintainers = [
+    { name = "Gabriel Ayres", email = "gabriel.ayres@pureai.com.br" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "asyncio>=3.4.3",
+    "crawl4ai>=0.7.0",
+    "purecpp>=0.0.12",
+    "purecpp-extract>=0.0.12",
+    "purecpp-libs>=0.0.12",
+]
