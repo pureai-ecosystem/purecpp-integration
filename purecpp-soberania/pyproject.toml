@@ -1,0 +1,53 @@
+[project]
+name = "purecpp-soberania"
+version = "0.1.0"
+description = "Cliente Python para a API Soberano sob o namespace purecpp.soberania"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Diogo Vieira", email = "you@example.com" }]
+requires-python = ">=3.9"
+dependencies = [
+    "httpx>=0.27",
+    "pydantic>=2.6",
+    "tenacity>=8.2"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "respx",         # mock httpx
+    "ruff",
+    "mypy",
+    "types-requests"
+]
+
+[project.urls]
+Homepage = "https://github.com/pureai-ecosystem/purecpp-soberania"
+Repository = "https://github.com/pureai-ecosystem/purecpp-soberania/issues"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+# Usando find para pegar tudo abaixo de src/purecpp/soberania
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["purecpp.soberania*"]
+
+# (Opcional) incluir arquivos estáticos, se tiver
+[tool.setuptools.package-data]
+"purecpp.soberania" = ["py.typed"]
+
+# Pytest config opcional
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+# Ruff/Lint opcional
+[tool.ruff]
+line-length = 100
+src = ["src"]
