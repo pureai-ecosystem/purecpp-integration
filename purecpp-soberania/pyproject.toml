@@ -1,9 +1,14 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "purecpp-soberania"
-version = "0.1.0"
-description = "Cliente Python para a API Soberano sob o namespace purecpp.soberania"
+version = "0.1.2"
+description = "Cliente Python para a API Soberano sob o namespace purecpp_soberania"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "Diogo Vieira", email = "you@example.com" }]
 requires-python = ">=3.9"
 dependencies = [
@@ -15,8 +20,8 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest",
-    "pytest-asyncio",
-    "respx",         # mock httpx
+    "pytest-asyncio",   
+    "respx",
     "ruff",
     "mypy",
     "types-requests"
@@ -24,30 +29,23 @@ dev = [
 
 [project.urls]
 Homepage = "https://github.com/pureai-ecosystem/purecpp-soberania"
-Repository = "https://github.com/pureai-ecosystem/purecpp-soberania/issues"
-
-[build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.build_meta"
+Repository = "https://github.com/pureai-ecosystem/purecpp-soberania"
+Issues = "https://github.com/pureai-ecosystem/purecpp-soberania/issues"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
 
-# Usando find para pegar tudo abaixo de src/purecpp/soberania
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["purecpp.soberania*"]
+include = ["purecpp_soberania*"]
 
-# (Opcional) incluir arquivos estáticos, se tiver
 [tool.setuptools.package-data]
-"purecpp.soberania" = ["py.typed"]
+purecpp_soberania = ["py.typed"]
 
-# Pytest config opcional
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
 
-# Ruff/Lint opcional
 [tool.ruff]
 line-length = 100
 src = ["src"]
