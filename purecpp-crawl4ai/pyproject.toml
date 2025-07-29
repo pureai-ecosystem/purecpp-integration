@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "purecpp-crawl4ai"
 version = "0.1.0"
@@ -5,7 +9,6 @@ description = "PureCPP Crawl4AI integration"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
-readme = "README.md"
 authors = [
     { name = "Gabriel Ayres", email = "gabriel.ayres@pureai.com.br" },
 ]
