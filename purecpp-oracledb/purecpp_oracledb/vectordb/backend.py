@@ -1,0 +1,13 @@
+from __future__ import annotations
+from typing import Protocol, Iterable, List, Dict, Optional
+from .document import Document
+from .types import QueryResult
+
+class VectorBackend(Protocol):
+    dim: int
+
+    def is_open(self) -> bool: ...
+    def insert(self, docs: Iterable[Document]) -> None: ...
+    def query(self, embedding: List[float], k: int,
+              filter: Optional[Dict[str, str]] = None) -> List[QueryResult]: ...
+    def close(self) -> None: ...
