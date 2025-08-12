@@ -42,7 +42,8 @@ class WebSearch:
                 doc = self.read(r.url, mime=mime)
                 doc.title = r.title
                 docs.append(doc)
-            except Exception:
+            except Exception as e:
+                print(f"[WebSearch] Failed to read '{r.url}': {e}")
                 continue
         return docs
 
@@ -78,7 +79,8 @@ class WebSearch:
                 d = self.read(r.url, mime=mime)
                 d.title = r.title
                 docs.append(d)
-            except Exception:
+            except Exception as e:
+                print(f"[WebSearch] Failed to read '{r.url}': {e}")
                 continue
 
         #3) Build payload**

@@ -1,6 +1,5 @@
-.venv
-env
-venv
 .env
- __pycache__
- */__pycache__/
+.venv
+__pycache__
+*egg-info
+Wallet_XU62UQK9OEAD0789

@@ -55,7 +55,7 @@ class BraveProvider:
                 url=item.get("url", ""),
                 snippet=item.get("description"),
                 source="brave",
-                score=item.get("rank"),
+                score=item.get("page_age"),
                 metadata={"brave_raw": item},
             ))
         return results

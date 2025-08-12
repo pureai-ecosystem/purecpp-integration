@@ -1,6 +1,7 @@
 import os
 import sys
 from dotenv import load_dotenv
+import oracledb
 
 # Add the project directories to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'purecpp-huggingface-embedding')))
@@ -10,8 +11,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'purecpp
 from purecpp_huggingface_embedding.embedding import HuggingFaceEmbeddings
 from purecpp_oracledb.vectordb.backends.oracle_backend import OracleVectorBackend
 from purecpp_oracledb.vectordb.document import Document
-from purecpp_websearch.purecpp_websearch.websearch.pipeline import WebSearch
-
+from purecpp_websearch.websearch.pipeline import WebSearch
+from purecpp_websearch.websearch.settings import Settings
+load_dotenv()
 def main():
     """Main function to run the RAG pipeline."""
     load_dotenv()
@@ -24,21 +26,25 @@ def main():
 
     # Oracle Database Configuration
     oracle_config = {
-        "user": os.getenv("ORACLE_USER", "your_user"),
-        "password": os.getenv("ORACLE_PASSWORD", "your_password"),
-        "dsn": os.getenv("ORACLE_DSN", "your_dsn"),
-        "config_dir": os.getenv("ORACLE_CONFIG_DIR", "/path/to/your/wallet"),
-        "wallet_location": os.getenv("ORACLE_WALLET_LOCATION", "/path/to/your/wallet"),
-        "wallet_password": os.getenv("ORACLE_WALLET_PASSWORD", "your_wallet_password"),
+        "user": os.getenv("ORACLE_USER"),
+        "password": os.getenv("ORACLE_PASSWORD"),
+        "dsn": os.getenv("ORACLE_DSN"),
+        "config_dir": os.getenv("ORACLE_CONFIG_DIR"),
+        "wallet_location": os.getenv("ORACLE_WALLET_LOCATION"),
+        "wallet_password": os.getenv("ORACLE_WALLET_PASSWORD"),
         "table": "rag_documents",
         "dim": 384,  # Based on the 'mini-lm' model
         "metric": "COSINE",
         "ensure_schema": True,
+        "index_algorithm": "IVF",
     }
+    if not all([oracle_config["user"], oracle_config["password"], oracle_config["dsn"]]):
+        raise ValueError("Oracle database credentials (USER, PASSWORD, DSN) not fully set in environment.")
 
     # --- 2. Initialize Components ---
     print("Initializing components...")
-    web_search = WebSearch(settings={'brave_api_key': brave_api_key})
+    web_search_settings = Settings(brave_api_key=brave_api_key)
+    web_search = WebSearch(settings=web_search_settings)
     embedding_model = HuggingFaceEmbeddings(model_name='mini-lm')
     vector_db = OracleVectorBackend(cfg=oracle_config)
 
@@ -84,7 +90,7 @@ def main():
         print(f"  Title: {result.doc.metadata.get('title', 'N/A')}")
         print(f"  URL: {result.doc.metadata.get('url', 'N/A')}")
         print(f"  Score: {result.score}")
-        print(f"  Content: {result.doc.page_content[:500]}...")
+        print(f"  Content: {result.doc.page_content.read()[:500]}...")
 
     # --- 10. Cleanup ---
     vector_db.close()

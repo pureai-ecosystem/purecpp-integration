@@ -121,11 +121,7 @@ class OracleVectorBackend(VectorBackend):
                 v2 = copy.deepcopy(base_kwargs)
                 v2.pop("config_dir", None)
                 variants.append(v2)
-            if "wallet_location" in base_kwargs or "wallet_password" in base_kwargs:
-                v3 = copy.deepcopy(base_kwargs)
-                v3.pop("wallet_location", None)
-                v3.pop("wallet_password", None)
-                variants.append(v3)
+
 
             last_err = None
             for i, kw in enumerate(variants, 1):
@@ -177,6 +173,15 @@ class OracleVectorBackend(VectorBackend):
         DISTANCE <metric> [WITH TARGET ACCURACY n] [PARAMETERS (...)]
         """
         cur = self.conn.cursor()
+
+        # 0) Drop table to ensure index changes are applied
+        drop_sql = f"""
+        BEGIN
+          EXECUTE IMMEDIATE 'DROP TABLE {self.table} PURGE';
+        EXCEPTION WHEN OTHERS THEN
+          IF SQLCODE != -942 THEN RAISE; END IF; -- ignore "table or view does not exist"
+        END;"""
+        cur.execute(drop_sql)
 
         # 1) Table with JSON and VECTOR
         table_sql_json = f"""
