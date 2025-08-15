@@ -1,12 +1,24 @@
 [build-system]
-requires = ["setuptools>=69", "wheel"]
+requires = ["setuptools>=69.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "purecpp-oracledb"
-version = "0.1.0"
+version = "0.1.1"
+description = "PureCPP OracleDB integration"
+license = "MIT"
+license-files = ["LICENSE"]
+readme = "README.md"
+authors = [
+    { name = "pureai", email = "contato@pureai.com.br" },
+]
+maintainers = [
+    { name = "pureai", email = "contato@pureai.com.br" },
+]
 requires-python = ">=3.9"
-dependencies = ["oracledb>=2.1"]
+dependencies = [
+    "oracledb>=2.1",
+]
 
 [tool.setuptools.packages.find]
 where = ["."]

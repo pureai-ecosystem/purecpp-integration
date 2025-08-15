@@ -1,3 +1,5 @@
+LICENSE
+MANIFEST.in
 pyproject.toml
 purecpp_oracledb/__init__.py
 purecpp_oracledb.egg-info/PKG-INFO
@@ -13,9 +15,8 @@ purecpp_oracledb/vectordb/registry.py
 purecpp_oracledb/vectordb/types.py
 purecpp_oracledb/vectordb/backends/__init__.py
 purecpp_oracledb/vectordb/backends/oracle_backend.py
-purecpp_oracledb/vectordb/backends/oracle_compat_backend.py
 purecpp_oracledb/vectordb/wrappers/__init__.py
 purecpp_oracledb/vectordb/wrappers/concurrent.py
 purecpp_oracledb/vectordb/wrappers/metrics.py
-tests/test_conexao.py
+tests/test_conection.py
 tests/test_oracle.py

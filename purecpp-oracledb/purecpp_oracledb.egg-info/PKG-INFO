@@ -1,5 +1,12 @@
 Metadata-Version: 2.4
 Name: purecpp-oracledb
-Version: 0.1.0
+Version: 0.1.1
+Summary: PureCPP OracleDB integration
+Author-email: pureai <contato@pureai.com.br>
+Maintainer-email: pureai <contato@pureai.com.br>
+License-Expression: MIT
 Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
 Requires-Dist: oracledb>=2.1
+Dynamic: license-file
