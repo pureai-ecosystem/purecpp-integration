@@ -1,0 +1,13 @@
+CREATE TABLE VDB_DOCS (
+  id           VARCHAR2(64) PRIMARY KEY,
+  page_content CLOB,
+  metadata     CLOB CHECK (metadata IS JSON),
+  embedding    BLOB,
+  dim          NUMBER(4) NOT NULL,
+  l2norm       BINARY_DOUBLE
+);
+
+BEGIN
+  EXECUTE IMMEDIATE 'CREATE SEARCH INDEX VDB_DOCS_JSI ON VDB_DOCS(metadata) FOR JSON';
+EXCEPTION WHEN OTHERS THEN NULL; END;
+/

@@ -1,0 +1,12 @@
+backend: oracle_rds
+conn:
+  host: 
+  port: 1521
+  service_name: ORCL   
+  user: ${RDS_USER}
+  password: ${RDS_PASSWORD}
+params:
+  table: VDB_DOCS
+  dim: 768
+  ensure_schema: true
+  candidate_limit: 3000
